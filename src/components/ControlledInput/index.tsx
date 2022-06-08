@@ -1,6 +1,8 @@
 import React from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, FieldError } from 'react-hook-form';
+
 import { Input, InputProps } from '../Input';
+import { Error } from './styles';
 
 // estendendo as InputProps para não ter que repetir tudo e as próprias Props dele
 type Props = InputProps & {
@@ -12,21 +14,29 @@ type Props = InputProps & {
   // cada input tem que ser único no formulário para ser possível resgatar as
   // informações de uma vez só, por isso o name
   name: string;
+  error?: FieldError;
 };
 
-export function ControlledInput({ control, name, ...rest }: Props) {
+export function ControlledInput({ control, name, error, ...rest }: Props) {
   return (
-    // o Controller vai controlar o conteúdo de cada Input sem utilizar estado
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { onChange, value } }) => (
-        <Input
-          onChangeText={onChange}
-          value={value}
-          {...rest}
-        />
-      )}
-    />
+    <>
+      {/* o Controller vai controlar o conteúdo de cada Input sem utilizar estado */}
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <Input
+            onChangeText={onChange}
+            value={value}
+            {...rest}
+          />
+        )}
+      />
+
+      {
+        error && <Error>{error.message}</Error>
+      }
+
+    </>
   );
 };
