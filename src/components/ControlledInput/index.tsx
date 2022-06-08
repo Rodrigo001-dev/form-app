@@ -16,6 +16,7 @@ type Props = InputProps & {
 
 export function ControlledInput({ control, name, ...rest }: Props) {
   return (
+    // o Controller vai controlar o conteúdo de cada Input sem utilizar estado
     <Controller
       name={name}
       control={control}
