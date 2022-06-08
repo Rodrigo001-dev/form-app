@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button } from '../Button';
 import { ControlledInput } from '../ControlledInput';
@@ -17,8 +18,18 @@ type FormData = {
   password_confirm: string;
 };
 
+const schema = yup.object({
+  name: yup.string().required("Informe o seu nome"),
+  email: yup.string().email("E-mail inválido").required("Informe o e-mail"),
+  password: yup.string().min(6, "A senha deve ter ao menos 6 dígitos").required("Informe a senha"),
+  password_confirm: yup.string().oneOf([yup.ref('password'), null], 'A senha de confirmação não confere.').required("Informe a confirmação da senha"),
+});
+
 export function Form() {
-  const { control, handleSubmit } = useForm<FormData>();
+  const { control, handleSubmit } = useForm<FormData>({
+    // o meu formulário tem que ser no no padrão que eu defini(schema)
+    resolver: yupResolver(schema)
+  });
 
   function handleUserRegister(data: FormData) {
 
