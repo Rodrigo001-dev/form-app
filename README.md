@@ -1,7 +1,5 @@
 ## :page_with_curl: Projeto
 
-Criando formulários de alto desempenho com React-Native!
-
 A forma tradicional é criar um estado para armazenar as informações(valores) de cada input, Mas tem estratégias melhores.
 No React existem motivos que vão gerar um novo cliclo renderização:
 
