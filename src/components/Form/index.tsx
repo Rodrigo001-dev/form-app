@@ -32,7 +32,7 @@ export function Form() {
   });
 
   function handleUserRegister(data: FormData) {
-
+    console.log(data);
   }
 
   return (
