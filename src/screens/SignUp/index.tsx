@@ -7,7 +7,15 @@ import { Container } from './styles';
 export function SignUp() {
   return (
     <Container>
+      {/*
+        o TouchableWithoutFeedback vai fazer com que quando o usuário clicar em
+        qualquer lugar da tela vai fechar o teclado
+      */}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        {/*
+          quando eu clico em qualquer input o KeyboardAvoidingView vai subir o
+          form
+        */}
         <KeyboardAvoidingView behavior="position" enabled>
           <>
             <Header />
