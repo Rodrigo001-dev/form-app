@@ -9,10 +9,17 @@ import { Container } from './styles';
 // expressão regular para verificar se o email está em um formato de um email
 const VALID_EMAIL_EXPRESSION = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 
-export function Form() {
-  const { control, handleSubmit } = useForm();
+type FormData = {
+  name: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+};
 
-  function handleUserRegister() {
+export function Form() {
+  const { control, handleSubmit } = useForm<FormData>();
+
+  function handleUserRegister(data: FormData) {
 
   }
 
@@ -49,7 +56,13 @@ export function Form() {
 
       <Button
         title="Cadastrar"
-        onPress={handleUserRegister}
+         /*
+          quando eu clicar no Button ele vai chamar a função handleSubmit que
+          vai buscar pela informações do formulário que estão sendo controladas
+          e administradas pelo react-hook-forme vai repassar para a
+          handleUserRegister
+         */
+        onPress={handleSubmit(handleUserRegister)}
       />
     </Container>
   )
